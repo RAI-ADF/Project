@@ -1,0 +1,1216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2780FAA6-8D0B-4D08-910E-D9D173BFB636}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PLNLite</RootNamespace>
+    <AssemblyName>BioCustomerCare</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v13.2.Core, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v13.2.Core, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v13.2.Core, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v13.2.Core, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v13.2.Core, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v13.2.Core, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxThemes.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v13.2.Web, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="dotless.Core">
+      <HintPath>..\packages\dotless.1.4.4\lib\dotless.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Less">
+      <HintPath>..\packages\Less.3.0\lib\Less.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.Protocols" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery">
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.1.8.2\lib\net40\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery.UI.Combined">
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.UI.Combined.1.8.24\lib\net40\AspNet.ScriptManager.jQuery.UI.Combined.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.1.4.12333\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Membership.OpenAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Membership.OpenAuth.1.0.1\lib\net40\Microsoft.AspNet.Membership.OpenAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.0\lib\net40\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Account\Login.aspx" />
+    <Content Include="Account\Manage.aspx" />
+    <Content Include="Account\OpenAuthProviders.ascx" />
+    <Content Include="Account\Register.aspx" />
+    <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Gallery\Contents\PLNLite-logo-small.png" />
+    <Content Include="Gallery\Contents\PLNLite_Logo.png" />
+    <Content Include="Gallery\Contents\PLNLite_Logo1.png" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\office.jpg" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Default.aspx" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\PLNLite_Logo1.png" />
+    <Content Include="packages.config" />
+    <Content Include="Scripts\CustomerCare\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Scripts\CustomerCare\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Scripts\CustomerCare\bootstrap\css\bootstrap.css" />
+    <Content Include="Scripts\CustomerCare\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Scripts\CustomerCare\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\CustomerCare\bootstrap\js\bootstrap.js" />
+    <Content Include="Scripts\CustomerCare\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\CustomerCare\bootstrap\js\html5shiv.js" />
+    <Content Include="Scripts\CustomerCare\bootstrap\js\jquery.js" />
+    <Content Include="Scripts\CustomerCare\bootstrap\js\jquery.min.js" />
+    <Content Include="Scripts\CustomerCare\bootstrap\js\respond.min.js" />
+    <Content Include="Scripts\CustomerCare\fonts\fonts.css" />
+    <Content Include="Scripts\CustomerCare\fonts\Montserrat\montserrat-bold-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\Montserrat\montserrat-regular-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\Apache License Version 2.txt" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\demo.html" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Bold-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-BoldItalic-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-ExtraBold-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-ExtraBoldItalic-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Italic-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Light-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-LightItalic-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Regular-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Semibold-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-SemiboldItalic-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\stylesheet.css" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\demo.html" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway OFL Font License.txt" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Bold-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-ExtraBold-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-ExtraLight-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Heavy-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Light-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Medium-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Regular-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-SemiBold-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Thin-webfont.svg" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\stylesheet.css" />
+    <Content Include="Scripts\CustomerCare\images\ajax.png" />
+    <Content Include="Scripts\CustomerCare\images\badge.png" />
+    <Content Include="Scripts\CustomerCare\images\bg\01.jpg" />
+    <Content Include="Scripts\CustomerCare\images\bg\02.jpg" />
+    <Content Include="Scripts\CustomerCare\images\bg\03.jpg" />
+    <Content Include="Scripts\CustomerCare\images\bg\04.jpg" />
+    <Content Include="Scripts\CustomerCare\images\book1.JPG" />
+    <Content Include="Scripts\CustomerCare\images\cross.png" />
+    <Content Include="Scripts\CustomerCare\images\dark-bliss.jpg" />
+    <Content Include="Scripts\CustomerCare\images\desk1.jpg" />
+    <Content Include="Scripts\CustomerCare\images\desk2.jpg" />
+    <Content Include="Scripts\CustomerCare\images\email.png" />
+    <Content Include="Scripts\CustomerCare\images\face-tiles-cyan.jpg" />
+    <Content Include="Scripts\CustomerCare\images\face-tiles-yellow.jpg" />
+    <Content Include="Scripts\CustomerCare\images\face-tiles.jpg" />
+    <Content Include="Scripts\CustomerCare\images\favicon\favicon.ico" />
+    <Content Include="Scripts\CustomerCare\images\favicon\favicon.png" />
+    <Content Include="Scripts\CustomerCare\images\featured-full.png" />
+    <Content Include="Scripts\CustomerCare\images\featured.png" />
+    <Content Include="Scripts\CustomerCare\images\full%402x.png" />
+    <Content Include="Scripts\CustomerCare\images\full-h%402x.png" />
+    <Content Include="Scripts\CustomerCare\images\full-h.png" />
+    <Content Include="Scripts\CustomerCare\images\full.png" />
+    <Content Include="Scripts\CustomerCare\images\home.png" />
+    <Content Include="Scripts\CustomerCare\images\inner-bg\03.jpg" />
+    <Content Include="Scripts\CustomerCare\images\loading.gif" />
+    <Content Include="Scripts\CustomerCare\images\logo.png" />
+    <Content Include="Scripts\CustomerCare\images\menu.png" />
+    <Content Include="Scripts\CustomerCare\images\newletter.png" />
+    <Content Include="Scripts\CustomerCare\images\next.png" />
+    <Content Include="Scripts\CustomerCare\images\parallax\slide02-bg.jpg" />
+    <Content Include="Scripts\CustomerCare\images\parallax\slide04-bg.jpg" />
+    <Content Include="Scripts\CustomerCare\images\parallax\slide05-bg.jpg" />
+    <Content Include="Scripts\CustomerCare\images\parallax\slide06-bg.jpg" />
+    <Content Include="Scripts\CustomerCare\images\parallax\slide07-bg.jpg" />
+    <Content Include="Scripts\CustomerCare\images\parallax\slide08-bg.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio5.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio9.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_slides\01.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_slides\02.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_slides\03.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_slides\04.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\01.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\02.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\03.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\04.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\05.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\06.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\07.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\08.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\09.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\10.jpg" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_zoom\01.jpg" />
+    <Content Include="Scripts\CustomerCare\images\poster.jpg" />
+    <Content Include="Scripts\CustomerCare\images\prev.png" />
+    <Content Include="Scripts\CustomerCare\images\proceed-dark.png" />
+    <Content Include="Scripts\CustomerCare\images\proceed-white.png" />
+    <Content Include="Scripts\CustomerCare\images\separator1.jpg" />
+    <Content Include="Scripts\CustomerCare\images\separator3.jpg" />
+    <Content Include="Scripts\CustomerCare\images\services\01.png" />
+    <Content Include="Scripts\CustomerCare\images\services\02.png" />
+    <Content Include="Scripts\CustomerCare\images\services\03.png" />
+    <Content Include="Scripts\CustomerCare\images\services\04.png" />
+    <Content Include="Scripts\CustomerCare\images\services\05.png" />
+    <Content Include="Scripts\CustomerCare\images\services\06.png" />
+    <Content Include="Scripts\CustomerCare\images\services\question-w.png" />
+    <Content Include="Scripts\CustomerCare\images\services\question.png" />
+    <Content Include="Scripts\CustomerCare\images\single-project\01.jpg" />
+    <Content Include="Scripts\CustomerCare\images\single-project\02.jpg" />
+    <Content Include="Scripts\CustomerCare\images\single-project\03.jpg" />
+    <Content Include="Scripts\CustomerCare\images\single-project\full\01.jpg" />
+    <Content Include="Scripts\CustomerCare\images\single-project\full\02.jpg" />
+    <Content Include="Scripts\CustomerCare\images\single-project\full\03.jpg" />
+    <Content Include="Scripts\CustomerCare\images\single-project\icons\01.png" />
+    <Content Include="Scripts\CustomerCare\images\single-project\icons\02.png" />
+    <Content Include="Scripts\CustomerCare\images\single-project\icons\03.png" />
+    <Content Include="Scripts\CustomerCare\images\small%402x.png" />
+    <Content Include="Scripts\CustomerCare\images\small-h%402x.png" />
+    <Content Include="Scripts\CustomerCare\images\small-h.png" />
+    <Content Include="Scripts\CustomerCare\images\small.png" />
+    <Content Include="Scripts\CustomerCare\images\social\facebook.png" />
+    <Content Include="Scripts\CustomerCare\images\social\google.png" />
+    <Content Include="Scripts\CustomerCare\images\social\locate.png" />
+    <Content Include="Scripts\CustomerCare\images\social\mail.png" />
+    <Content Include="Scripts\CustomerCare\images\social\phone.png" />
+    <Content Include="Scripts\CustomerCare\images\social\twitter.png" />
+    <Content Include="Scripts\CustomerCare\images\standard-logo-cyan.png" />
+    <Content Include="Scripts\CustomerCare\images\standard-logo-yellow.png" />
+    <Content Include="Scripts\CustomerCare\images\standard-logo.png" />
+    <Content Include="Scripts\CustomerCare\images\stats\01.png" />
+    <Content Include="Scripts\CustomerCare\images\stats\02.png" />
+    <Content Include="Scripts\CustomerCare\images\stats\03.png" />
+    <Content Include="Scripts\CustomerCare\images\team\01.jpg" />
+    <Content Include="Scripts\CustomerCare\images\team\02.jpg" />
+    <Content Include="Scripts\CustomerCare\images\team\03.jpg" />
+    <Content Include="Scripts\CustomerCare\images\team\04.jpg" />
+    <Content Include="Scripts\CustomerCare\images\team\05.jpg" />
+    <Content Include="Scripts\CustomerCare\images\team\06.jpg" />
+    <Content Include="Scripts\CustomerCare\images\tech1.jpg" />
+    <Content Include="Scripts\CustomerCare\images\tech1.png" />
+    <Content Include="Scripts\CustomerCare\images\tech2.jpg" />
+    <Content Include="Scripts\CustomerCare\images\tech3.jpg" />
+    <Content Include="Scripts\CustomerCare\images\touchicon\apple-touch-icon-114-precomposed.png" />
+    <Content Include="Scripts\CustomerCare\images\touchicon\apple-touch-icon-144-precomposed.png" />
+    <Content Include="Scripts\CustomerCare\images\touchicon\apple-touch-icon-57-precomposed.png" />
+    <Content Include="Scripts\CustomerCare\images\touchicon\apple-touch-icon-72-precomposed.png" />
+    <Content Include="Scripts\CustomerCare\images\tweet.png" />
+    <Content Include="Scripts\CustomerCare\images\twitter.png" />
+    <Content Include="Scripts\CustomerCare\images\url.png" />
+    <Content Include="Scripts\CustomerCare\images\user.png" />
+    <Content Include="Scripts\CustomerCare\images\vertical-logo.png" />
+    <Content Include="Scripts\CustomerCare\images\zoom.png" />
+    <Content Include="Scripts\CustomerCare\javascripts\animations-init.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\bgvideo-init.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\carousel-init.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\classie.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\device.min.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\fancymenu-rollin.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\flexslider.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\form-validation.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\intro.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\jquery.easing.1.3.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\jquery.magnific-popup.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\jquery.mixitup.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\jquery.parallax.min.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\jquery.retina.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\jquery.touchSwipe.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\jquery.tweet.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\main.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\modernizr.custom.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\okvideo.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\owl.carousel.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\pace.min.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\parallax-init.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\platform.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\portfolio.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\retina.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\showcase-video.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\smooth-scroll-standard-nav.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\smooth-scroll.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\standard-nav-action.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\waypoints.min.js" />
+    <Content Include="Scripts\CustomerCare\javascripts\wow.js" />
+    <Content Include="Scripts\CustomerCare\less\less-1.5.0.min.js" />
+    <Content Include="Scripts\CustomerCare\projects\project-slider.html" />
+    <Content Include="Scripts\CustomerCare\projects\project-vimeo.html" />
+    <Content Include="Scripts\CustomerCare\projects\project-youtube.html" />
+    <Content Include="Scripts\CustomerCare\stylesheets\animate.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\drag.png" />
+    <Content Include="Scripts\CustomerCare\stylesheets\fancymenu.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\foliohover.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\intro.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\jquery.tweet.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\magnific-popup.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\main-responsive.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\main-retina.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\main.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\owl.carousel.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\owl.theme.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\pace.preloader.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\parallax.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\pricing.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\single-post.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\slidingmenu.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\standard-nav.css" />
+    <Content Include="Scripts\CustomerCare\stylesheets\superslides.css" />
+    <Content Include="Scripts\CustomerCare\twitter\jquery.tweet.js" />
+    <Content Include="Scripts\CustomerCare\twitter\jquery.tweet.min.js" />
+    <Content Include="Scripts\CustomerCare\videos\01.mp4" />
+    <Content Include="Scripts\CustomerCare\videos\02.mp4" />
+    <Content Include="Scripts\CustomerCare\videos\posters\01.jpg" />
+    <Content Include="Scripts\CustomerCare\videos\posters\02.jpg" />
+    <Content Include="Scripts\CustomerCare\videos\posters\03.jpg" />
+    <Content Include="Scripts\CustomerCare\bootstrap\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\bootstrap\css\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="Scripts\CustomerCare\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Scripts\CustomerCare\bootstrap\fonts\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\CustomerCare\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\CustomerCare\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\CustomerCare\bootstrap\js\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\fonts\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\fonts\Montserrat\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\fonts\Montserrat\montserrat-bold-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\Montserrat\montserrat-bold-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\Montserrat\montserrat-bold-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\Montserrat\montserrat-regular-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\Montserrat\montserrat-regular-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\Montserrat\montserrat-regular-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Bold-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Bold-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Bold-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-BoldItalic-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-BoldItalic-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-BoldItalic-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-ExtraBold-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-ExtraBold-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-ExtraBold-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-ExtraBoldItalic-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-ExtraBoldItalic-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-ExtraBoldItalic-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Italic-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Italic-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Italic-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Light-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Light-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Light-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-LightItalic-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-LightItalic-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-LightItalic-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Regular-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Regular-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Regular-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Semibold-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Semibold-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-Semibold-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-SemiboldItalic-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-SemiboldItalic-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\OpenSans\OpenSans-SemiboldItalic-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Bold-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Bold-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Bold-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-ExtraBold-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-ExtraBold-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-ExtraBold-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-ExtraLight-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-ExtraLight-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-ExtraLight-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Heavy-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Heavy-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Heavy-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Light-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Light-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Light-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Medium-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Medium-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Medium-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Regular-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Regular-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Regular-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-SemiBold-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-SemiBold-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-SemiBold-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Thin-webfont.eot" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Thin-webfont.ttf" />
+    <Content Include="Scripts\CustomerCare\fonts\raleway\Raleway-Thin-webfont.woff" />
+    <Content Include="Scripts\CustomerCare\images\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\bg\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\bg\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\favicon\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\favicon\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\inner-bg\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\inner-bg\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\parallax\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\parallax\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_slides\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_slides\images - Shortcut.lnk" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_slides\retina display - please read this.pdf" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_slides\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_thumbs\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_zoom\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_zoom\retina display - please read this.pdf" />
+    <Content Include="Scripts\CustomerCare\images\portfolio_zoom\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\services\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\services\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\single-project\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\single-project\full\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\single-project\full\retina display - please read this.pdf" />
+    <Content Include="Scripts\CustomerCare\images\single-project\icons\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\single-project\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\social\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\social\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\stats\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\stats\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\team\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\team\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\images\touchicon\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\images\touchicon\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\javascripts\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\less\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\less\color-blue.less" />
+    <Content Include="Scripts\CustomerCare\less\color-cyan.less" />
+    <Content Include="Scripts\CustomerCare\less\color-yellow.less" />
+    <Content Include="Scripts\CustomerCare\less\color.less" />
+    <Content Include="Scripts\CustomerCare\Mail\mail.php" />
+    <Content Include="Scripts\CustomerCare\Mail\mime.php" />
+    <Content Include="Scripts\CustomerCare\Mail\mimeDecode.php" />
+    <Content Include="Scripts\CustomerCare\Mail\mimePart.php" />
+    <Content Include="Scripts\CustomerCare\Mail\null.php" />
+    <Content Include="Scripts\CustomerCare\Mail\RFC822.php" />
+    <Content Include="Scripts\CustomerCare\Mail\sendmail.php" />
+    <Content Include="Scripts\CustomerCare\Mail\smtp.php" />
+    <Content Include="Scripts\CustomerCare\projects\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\stylesheets\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\twitter\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\twitter\2a16116a4467cfccff2e6ed13e372dbc.json" />
+    <Content Include="Scripts\CustomerCare\twitter\index.php" />
+    <Content Include="Scripts\CustomerCare\twitter\lib\tmhOAuth.php" />
+    <Content Include="Scripts\CustomerCare\twitter\lib\tmhUtilities.php" />
+    <Content Include="Scripts\CustomerCare\videos\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\videos\01.ogg" />
+    <Content Include="Scripts\CustomerCare\videos\01.webm" />
+    <Content Include="Scripts\CustomerCare\videos\02.ogg" />
+    <Content Include="Scripts\CustomerCare\videos\02.webm" />
+    <Content Include="Scripts\CustomerCare\videos\posters\.DS_Store" />
+    <Content Include="Scripts\CustomerCare\videos\posters\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\videos\Thumbs.db" />
+    <Content Include="Scripts\CustomerCare\less\color-green.less" />
+    <Content Include="Gallery\Ads\Thumbs.db" />
+    <Content Include="Gallery\Contents\Thumbs.db" />
+    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\css\demo_page.css" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\css\demo_table.css" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\back_disabled.png" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\back_enabled.png" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\back_enabled_hover.png" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\forward_disabled.png" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\forward_enabled.png" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\forward_enabled_hover.png" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\sort_asc.png" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\sort_asc_disabled.png" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\sort_both.png" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\sort_desc.png" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\sort_desc_disabled.png" />
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\js\jquery.dataTables.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\css\bootstrap-theme.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\css\bootstrap-theme.min.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\css\bootstrap.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\css\bootstrap.min.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\js\bootstrap.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\js\bootstrap.min.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-colorpicker\css\colorpicker.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-datepicker\css\datepicker.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-daterangepicker\daterangepicker-bs3.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-daterangepicker\daterangepicker.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-daterangepicker\moment.min.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-datetimepicker\css\datetimepicker.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-datetimepicker\js\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-fileupload\bootstrap-fileupload.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-fileupload\bootstrap-fileupload.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-inputmask\bootstrap-inputmask.min.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-switch-master\build\css\bootstrap3\bootstrap-switch.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-switch-master\build\js\bootstrap-switch.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-timepicker\compiled\timepicker.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-timepicker\js\bootstrap-timepicker.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-wysihtml5\bootstrap-wysihtml5.css" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-wysihtml5\bootstrap-wysihtml5.js" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-wysihtml5\wysihtml5-0.3.0.js" />
+    <Content Include="Scripts\UserPanel\assets\c3-chart\c3.css" />
+    <Content Include="Scripts\UserPanel\assets\c3-chart\c3.js" />
+    <Content Include="Scripts\UserPanel\assets\calendar\clndr.js" />
+    <Content Include="Scripts\UserPanel\assets\calendar\moment-2.2.1.js" />
+    <Content Include="Scripts\UserPanel\assets\chart-js\Chart.js" />
+    <Content Include="Scripts\UserPanel\assets\css3clock\css\style.css" />
+    <Content Include="Scripts\UserPanel\assets\css3clock\js\script.js" />
+    <Content Include="Scripts\UserPanel\assets\data-tables\DT_bootstrap.css" />
+    <Content Include="Scripts\UserPanel\assets\data-tables\DT_bootstrap.js" />
+    <Content Include="Scripts\UserPanel\assets\data-tables\images\sort_asc.png" />
+    <Content Include="Scripts\UserPanel\assets\data-tables\images\sort_asc_disabled.html" />
+    <Content Include="Scripts\UserPanel\assets\data-tables\images\sort_both.png" />
+    <Content Include="Scripts\UserPanel\assets\data-tables\images\sort_desc.png" />
+    <Content Include="Scripts\UserPanel\assets\data-tables\images\sort_desc_disabled.html" />
+    <Content Include="Scripts\UserPanel\assets\data-tables\jquery.dataTables.js" />
+    <Content Include="Scripts\UserPanel\assets\easypiechart\jquery.easypiechart.js" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\css\jquery.fileupload-noscript.css" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\css\jquery.fileupload-ui-noscript.css" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\css\jquery.fileupload-ui.css" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\css\jquery.fileupload.css" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\img\loading.gif" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\img\progressbar.gif" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\js\jquery.fileupload-audio.js" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\js\jquery.fileupload-image.js" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\js\jquery.fileupload-process.js" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\js\jquery.fileupload-ui.js" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\js\jquery.fileupload-validate.js" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\js\jquery.fileupload-video.js" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\js\jquery.fileupload.js" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\js\jquery.iframe-transport.js" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\js\main.js" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\js\vendor\jquery.ui.widget.js" />
+    <Content Include="Scripts\UserPanel\assets\flot-chart\jquery.flot.animator.min.js" />
+    <Content Include="Scripts\UserPanel\assets\flot-chart\jquery.flot.growraf.js" />
+    <Content Include="Scripts\UserPanel\assets\flot-chart\jquery.flot.js" />
+    <Content Include="Scripts\UserPanel\assets\flot-chart\jquery.flot.pie.resize.js" />
+    <Content Include="Scripts\UserPanel\assets\flot-chart\jquery.flot.resize.js" />
+    <Content Include="Scripts\UserPanel\assets\flot-chart\jquery.flot.selection.js" />
+    <Content Include="Scripts\UserPanel\assets\flot-chart\jquery.flot.stack.js" />
+    <Content Include="Scripts\UserPanel\assets\flot-chart\jquery.flot.time.js" />
+    <Content Include="Scripts\UserPanel\assets\flot-chart\jquery.flot.tooltip.min.js" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\css\font-awesome.css" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\css\font-awesome.min.css" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome\css\font-awesome.css" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome\fonts\fontawesome-webfontba72.svg" />
+    <Content Include="Scripts\UserPanel\assets\fuelux\css\tree-style.css" />
+    <Content Include="Scripts\UserPanel\assets\fuelux\img\tree-icons.png" />
+    <Content Include="Scripts\UserPanel\assets\fuelux\js\spinner.min.js" />
+    <Content Include="Scripts\UserPanel\assets\fuelux\js\tree.min - Copy.js" />
+    <Content Include="Scripts\UserPanel\assets\fuelux\js\tree.min.js" />
+    <Content Include="Scripts\UserPanel\assets\fullcalendar\fullcalendar\bootstrap-fullcalendar.css" />
+    <Content Include="Scripts\UserPanel\assets\fullcalendar\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Scripts\UserPanel\assets\gauge\gauge.js" />
+    <Content Include="Scripts\UserPanel\assets\google-map\data\points.js" />
+    <Content Include="Scripts\UserPanel\assets\google-map\maplace.js" />
+    <Content Include="Scripts\UserPanel\assets\gritter\css\jquery.gritter.css" />
+    <Content Include="Scripts\UserPanel\assets\gritter\images\ie-spacer.gif" />
+    <Content Include="Scripts\UserPanel\assets\gritter\js\jquery.gritter.js" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\jquery.icheck.js" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\flat\blue.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\flat\green.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\flat\grey.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\flat\purple.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\flat\red.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\flat\yellow.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\minimal\blue.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\minimal\green.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\minimal\minimal.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\minimal\purple.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\minimal\red.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\minimal\yellow.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\square\blue.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\square\green.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\square\purple.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\square\red.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\square\square.css" />
+    <Content Include="Scripts\UserPanel\assets\iCheck-master\skins\square\yellow.css" />
+    <Content Include="Scripts\UserPanel\assets\ion.rangeSlider-1.8.2\css\ion.rangeSlider.css" />
+    <Content Include="Scripts\UserPanel\assets\ion.rangeSlider-1.8.2\css\ion.rangeSlider.skinFlat.css" />
+    <Content Include="Scripts\UserPanel\assets\ion.rangeSlider-1.8.2\js\ion-rangeSlider\ion.rangeSlider.min.js" />
+    <Content Include="Scripts\UserPanel\assets\jplayer\jplayer.init.js" />
+    <Content Include="Scripts\UserPanel\assets\jplayer\js\jquery.jplayer.min.js" />
+    <Content Include="Scripts\UserPanel\assets\jplayer\skin\blue.monday\jplayer.blue.monday.css" />
+    <Content Include="Scripts\UserPanel\assets\jplayer\skin\blue.monday\jplayer.blue.monday.png" />
+    <Content Include="Scripts\UserPanel\assets\jplayer\skin\blue.monday\jplayer.blue.monday.seeking.gif" />
+    <Content Include="Scripts\UserPanel\assets\jplayer\skin\blue.monday\jplayer.blue.monday.video.play.png" />
+    <Content Include="Scripts\UserPanel\assets\jquery-multi-select\css\multi-select.css" />
+    <Content Include="Scripts\UserPanel\assets\jquery-multi-select\img\switch.png" />
+    <Content Include="Scripts\UserPanel\assets\jquery-multi-select\js\jquery.multi-select.js" />
+    <Content Include="Scripts\UserPanel\assets\jquery-multi-select\js\jquery.quicksearch.js" />
+    <Content Include="Scripts\UserPanel\assets\jQuery-slimScroll-1.3.0\jquery.slimscroll.js" />
+    <Content Include="Scripts\UserPanel\assets\jquery-steps-master\build\jquery.steps.js" />
+    <Content Include="Scripts\UserPanel\assets\jquery-steps-master\demo\css\jquery.steps.css" />
+    <Content Include="Scripts\UserPanel\assets\jquery-tags-input\jquery.tagsinput.css" />
+    <Content Include="Scripts\UserPanel\assets\jquery-tags-input\jquery.tagsinput.js" />
+    <Content Include="Scripts\UserPanel\assets\jquery-ui\images\animated-overlay.gif" />
+    <Content Include="Scripts\UserPanel\assets\jquery-ui\jquery-ui-1.10.1.custom.min.css" />
+    <Content Include="Scripts\UserPanel\assets\jquery-ui\jquery-ui-1.10.1.custom.min.js" />
+    <Content Include="Scripts\UserPanel\assets\jquery.scrollTo\jquery.scrollTo.js" />
+    <Content Include="Scripts\UserPanel\assets\jvector-map\jquery-jvectormap-1.2.2.css" />
+    <Content Include="Scripts\UserPanel\assets\jvector-map\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Scripts\UserPanel\assets\jvector-map\jquery-jvectormap-us-lcc-en.js" />
+    <Content Include="Scripts\UserPanel\assets\jvector-map\jqvmap\data\jquery.vmap.sampledata.js" />
+    <Content Include="Scripts\UserPanel\assets\jvector-map\jqvmap\jquery.vmap.js" />
+    <Content Include="Scripts\UserPanel\assets\jvector-map\jqvmap\maps\continents\jquery.vmap.asia.js" />
+    <Content Include="Scripts\UserPanel\assets\jvector-map\jqvmap\maps\continents\jquery.vmap.australia.js" />
+    <Content Include="Scripts\UserPanel\assets\jvector-map\jqvmap\maps\continents\jquery.vmap.europe.js" />
+    <Content Include="Scripts\UserPanel\assets\jvector-map\jqvmap\maps\jquery.vmap.world.js" />
+    <Content Include="Scripts\UserPanel\assets\mini-upload-form\assets\css\bucketmin.css" />
+    <Content Include="Scripts\UserPanel\assets\mini-upload-form\assets\img\icons.png" />
+    <Content Include="Scripts\UserPanel\assets\mini-upload-form\assets\js\jquery.fileupload.js" />
+    <Content Include="Scripts\UserPanel\assets\mini-upload-form\assets\js\jquery.iframe-transport.js" />
+    <Content Include="Scripts\UserPanel\assets\mini-upload-form\assets\js\jquery.knob.js" />
+    <Content Include="Scripts\UserPanel\assets\mini-upload-form\assets\js\jquery.ui.widget.js" />
+    <Content Include="Scripts\UserPanel\assets\mini-upload-form\assets\js\script.js" />
+    <Content Include="Scripts\UserPanel\assets\morris-chart\morris.css" />
+    <Content Include="Scripts\UserPanel\assets\morris-chart\morris.js" />
+    <Content Include="Scripts\UserPanel\assets\morris-chart\raphael-min.js" />
+    <Content Include="Scripts\UserPanel\assets\nestable\jquery.nestable.css" />
+    <Content Include="Scripts\UserPanel\assets\nestable\jquery.nestable.js" />
+    <Content Include="Scripts\UserPanel\assets\skycons\skycons.js" />
+    <Content Include="Scripts\UserPanel\assets\sparkline\jquery.sparkline.js" />
+    <Content Include="Scripts\UserPanel\bs3\css\bootstrap.min.css" />
+    <Content Include="Scripts\UserPanel\bs3\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\UserPanel\bs3\js\bootstrap.min.js" />
+    <Content Include="Scripts\UserPanel\css\bootstrap-reset.css" />
+    <Content Include="Scripts\UserPanel\css\bootstrap.min.html" />
+    <Content Include="Scripts\UserPanel\css\clndr.css" />
+    <Content Include="Scripts\UserPanel\css\invoice-print.css" />
+    <Content Include="Scripts\UserPanel\css\style-responsive.css" />
+    <Content Include="Scripts\UserPanel\css\style.css" />
+    <Content Include="Scripts\UserPanel\css\table-responsive.css" />
+    <Content Include="Scripts\UserPanel\images\404.png" />
+    <Content Include="Scripts\UserPanel\images\500.png" />
+    <Content Include="Scripts\UserPanel\images\acc-expand.png" />
+    <Content Include="Scripts\UserPanel\images\al.jpeg" />
+    <Content Include="Scripts\UserPanel\images\al.jpg" />
+    <Content Include="Scripts\UserPanel\images\avatar-mini-2.jpg" />
+    <Content Include="Scripts\UserPanel\images\avatar-mini-3.jpg" />
+    <Content Include="Scripts\UserPanel\images\avatar-mini-4.jpg" />
+    <Content Include="Scripts\UserPanel\images\avatar-mini.jpg" />
+    <Content Include="Scripts\UserPanel\images\avatar1.jpg" />
+    <Content Include="Scripts\UserPanel\images\avatar1_small.jpg" />
+    <Content Include="Scripts\UserPanel\images\biofarmalogo.png" />
+    <Content Include="Scripts\UserPanel\images\bucket-logo.png" />
+    <Content Include="Scripts\UserPanel\images\chat-avatar2.jpg" />
+    <Content Include="Scripts\UserPanel\images\chat-user-thumb-f.png" />
+    <Content Include="Scripts\UserPanel\images\chat-user-thumb.png" />
+    <Content Include="Scripts\UserPanel\images\crazy-price.jpg" />
+    <Content Include="Scripts\UserPanel\images\customSelect-arrow.gif" />
+    <Content Include="Scripts\UserPanel\images\favicon.html" />
+    <Content Include="Scripts\UserPanel\images\flags\de.png" />
+    <Content Include="Scripts\UserPanel\images\flags\es.png" />
+    <Content Include="Scripts\UserPanel\images\flags\fr.png" />
+    <Content Include="Scripts\UserPanel\images\flags\ru.png" />
+    <Content Include="Scripts\UserPanel\images\flags\us.png" />
+    <Content Include="Scripts\UserPanel\images\input-spinner.gif" />
+    <Content Include="Scripts\UserPanel\images\lock-screen.jpg" />
+    <Content Include="Scripts\UserPanel\images\lock_thumb.jpg" />
+    <Content Include="Scripts\UserPanel\images\logo.png" />
+    <Content Include="Scripts\UserPanel\images\nav-expand.png" />
+    <Content Include="Scripts\UserPanel\images\product_img.png" />
+    <Content Include="Scripts\UserPanel\images\search-icon.png" />
+    <Content Include="Scripts\UserPanel\images\sm-img-1.jpg" />
+    <Content Include="Scripts\UserPanel\images\sm-img-2.jpg" />
+    <Content Include="Scripts\UserPanel\images\sm-img-3.jpg" />
+    <Content Include="Scripts\UserPanel\images\top-arrow.png" />
+    <Content Include="Scripts\UserPanel\images\twitter_corner_black.png" />
+    <Content Include="Scripts\UserPanel\images\twitter_corner_blue.png" />
+    <Content Include="Scripts\UserPanel\images\user.png" />
+    <Content Include="Scripts\UserPanel\images\weather_img.png" />
+    <Content Include="Scripts\UserPanel\img\favicon.html" />
+    <Content Include="Scripts\UserPanel\js\accordion-menu\jquery.dcjqaccordion.2.7.js" />
+    <Content Include="Scripts\UserPanel\js\advanced-form\advanced-form.js" />
+    <Content Include="Scripts\UserPanel\js\c3-chart\c3-chart.init.js" />
+    <Content Include="Scripts\UserPanel\js\calendar\evnt.calendar.init.js" />
+    <Content Include="Scripts\UserPanel\js\calendar\external-dragging-calendar.js" />
+    <Content Include="Scripts\UserPanel\js\chartjs\chartjs.init.js" />
+    <Content Include="Scripts\UserPanel\js\custom-select\jquery.customSelect.min.js" />
+    <Content Include="Scripts\UserPanel\js\dashboard.js" />
+    <Content Include="Scripts\UserPanel\js\draggable-portlet\draggable-portlet.js" />
+    <Content Include="Scripts\UserPanel\js\dynamic_table\dynamic_table_init.js" />
+    <Content Include="Scripts\UserPanel\js\editable-table\table-editable.js" />
+    <Content Include="Scripts\UserPanel\js\flot-chart\flot.chart.init.js" />
+    <Content Include="Scripts\UserPanel\js\gritter\gritter.js" />
+    <Content Include="Scripts\UserPanel\js\hover-down\hover-dropdown.js" />
+    <Content Include="Scripts\UserPanel\js\icheck\icheck-init.js" />
+    <Content Include="Scripts\UserPanel\js\jquery-validate\jquery.validate.min.js" />
+    <Content Include="Scripts\UserPanel\js\jquery-validate\validation-init.js" />
+    <Content Include="Scripts\UserPanel\js\lib\jquery-1.8.3.min.js" />
+    <Content Include="Scripts\UserPanel\js\lib\jquery-ui-1.9.2.custom.min.js" />
+    <Content Include="Scripts\UserPanel\js\lib\jquery.js" />
+    <Content Include="Scripts\UserPanel\js\morris\morris.init.js" />
+    <Content Include="Scripts\UserPanel\js\nestable\nestable.js" />
+    <Content Include="Scripts\UserPanel\js\nicescroll\jquery.nicescroll.js" />
+    <Content Include="Scripts\UserPanel\js\scripts.js" />
+    <Content Include="Scripts\UserPanel\js\scrollTo\jquery.scrollTo.min.js" />
+    <Content Include="Scripts\UserPanel\js\toggle-button\toggle-init.js" />
+    <Content Include="Scripts\UserPanel\js\tree\Back Up\tree - Copy.js" />
+    <Content Include="Scripts\UserPanel\js\tree\tree.js" />
+    <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Views\Administrator\Dashboard.aspx" />
+    <Content Include="Views\Administrator\DetailProblem.aspx" />
+    <Content Include="Views\Administrator\DetailSolution.aspx" />
+    <Content Include="Views\Administrator\HelpDeskRequest.aspx" />
+    <Content Include="Views\Administrator\PagePrintReportComplaint.aspx" />
+    <Content Include="Views\Administrator\ReportForm.aspx" />
+    <Content Include="Views\Administrator\SettingEmail.aspx" />
+    <Content Include="Views\Administrator\SettingSMS.aspx" />
+    <Content Include="Views\Administrator\Statistics.aspx" />
+    <Content Include="Views\Administrator\HelpDeskDetail.aspx" />
+    <Content Include="Views\Application\404.aspx" />
+    <Content Include="Views\Application\500.aspx" />
+    <Content Include="Views\Application\PageHome.aspx" />
+    <Content Include="Views\Application\PageLocked.aspx" />
+    <Content Include="Views\Application\PageRegistration.aspx" />
+    <Content Include="Views\Application\PageSignIn.aspx" />
+    <Content Include="Views\Application\UnderConstruction.aspx" />
+    <Content Include="Views\HelpDesk\Confirmation.aspx" />
+    <Content Include="Views\HelpDesk\File_Lampiran\042015070005.png" />
+    <Content Include="Views\HelpDesk\FollowUp.aspx" />
+    <Content Include="Views\HelpDesk\HelpDesk.aspx" />
+    <Content Include="Views\HelpDesk\Information.aspx" />
+    <Content Include="Views\HelpDesk\Status.aspx" />
+    <Content Include="Views\HelpDesk\StatusInfo.aspx" />
+    <Content Include="Views\Templates\Graphs.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\UserPanel\assets\advanced-datatable\media\images\Thumbs.db" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\css\bootstrap-theme.css.map" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\css\bootstrap.css.map" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\UserPanel\assets\bootstrap-3.1.1\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\fonts\FontAwesome.otf" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\bordered-pulled.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\core.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\fixed-width.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\font-awesome.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\icons.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\larger.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\list.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\mixins.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\path.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\rotated-flipped.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\spinning.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\stacked.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\less\variables.less" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\font-awesome.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_bordered-pulled.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_core.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_fixed-width.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_icons.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_larger.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_list.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_mixins.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_path.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_rotated-flipped.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_spinning.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_stacked.scss" />
+    <Content Include="Scripts\UserPanel\assets\font-awesome-4.1.0\scss\_variables.scss" />
+    <Content Include="Scripts\UserPanel\assets\jquery-ui\images\Thumbs.db" />
+    <Content Include="Scripts\UserPanel\images\flags\Thumbs.db" />
+    <Content Include="Scripts\UserPanel\images\Thumbs.db" />
+    <Content Include="Scripts\UserPanel\assets\file-uploader\img\Thumbs.db" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Site.Mobile.Master" />
+    <Content Include="Views\HelpDesk\File_Lampiran\042015070006.docx" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="Account\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Manage.aspx.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Manage.aspx.designer.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.designer.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\RegisterExternalLogin.aspx.cs">
+      <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\RegisterExternalLogin.aspx.designer.cs">
+      <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Business\Activities\ActiveDirectoryManager.cs" />
+    <Compile Include="Business\Activities\EmailManager.cs" />
+    <Compile Include="Business\Activities\NotificationManager.cs" />
+    <Compile Include="Business\Activities\StatisticsManager.cs" />
+    <Compile Include="Business\Components\FileManager.cs" />
+    <Compile Include="Business\Components\HelpDesk.cs" />
+    <Compile Include="Business\Components\Notification.cs" />
+    <Compile Include="Business\Workflow\Workflow.cs" />
+    <Compile Include="Data\DataAccess\DataCatalogs.cs" />
+    <Compile Include="Data\DataAccess\DataReport.cs" />
+    <Compile Include="Data\DataAccess\StructuredDataCatalog.cs" />
+    <Compile Include="Data\DataAgent\DatabaseFactory.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Dictionary\Enum.cs" />
+    <Compile Include="Entity\Object\Menu.cs" />
+    <Compile Include="Frameworks\Configuration\MenuController.cs" />
+    <Compile Include="Frameworks\Configuration\RouteConfig.cs" />
+    <Compile Include="Frameworks\Converter\Converter.cs" />
+    <Compile Include="Frameworks\DataStructure\TreeStructureModel.cs" />
+    <Compile Include="Frameworks\Format\DateTime.cs" />
+    <Compile Include="Frameworks\Security\CryptographEngine.cs" />
+    <Compile Include="Frameworks\Validation\Filtering.cs" />
+    <Compile Include="Frameworks\Validation\Normalization.cs" />
+    <Compile Include="Frameworks\Validation\Validation.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Components\BasicScripts.cs" />
+    <Compile Include="Presentation\Components\HTML.cs" />
+    <Compile Include="Presentation\Components\JS.cs" />
+    <Compile Include="Presentation\Components\SideBarMenu.cs" />
+    <Compile Include="Presentation\Components\StyleScripts.cs" />
+    <Compile Include="Presentation\Controllers\TreeDataStructureGenerator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Services\ActiveDirectory.cs" />
+    <Compile Include="Service\Services\Email.cs" />
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administrator\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\DetailProblem.aspx.cs">
+      <DependentUpon>DetailProblem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administrator\DetailProblem.aspx.designer.cs">
+      <DependentUpon>DetailProblem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\DetailSolution.aspx.cs">
+      <DependentUpon>DetailSolution.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administrator\DetailSolution.aspx.designer.cs">
+      <DependentUpon>DetailSolution.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\HelpDeskRequest.aspx.cs">
+      <DependentUpon>HelpDeskRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administrator\HelpDeskRequest.aspx.designer.cs">
+      <DependentUpon>HelpDeskRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\PagePrintReportComplaint.aspx.cs">
+      <DependentUpon>PagePrintReportComplaint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administrator\PagePrintReportComplaint.aspx.designer.cs">
+      <DependentUpon>PagePrintReportComplaint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\ReportForm.aspx.cs">
+      <DependentUpon>ReportForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administrator\ReportForm.aspx.designer.cs">
+      <DependentUpon>ReportForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\Report\HelpDeskReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Administrator\Report\HelpDeskReport.Designer.cs">
+      <DependentUpon>HelpDeskReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\SettingEmail.aspx.cs">
+      <DependentUpon>SettingEmail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administrator\SettingEmail.aspx.designer.cs">
+      <DependentUpon>SettingEmail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\SettingSMS.aspx.cs">
+      <DependentUpon>SettingSMS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administrator\SettingSMS.aspx.designer.cs">
+      <DependentUpon>SettingSMS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\Statistics.aspx.cs">
+      <DependentUpon>Statistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administrator\Statistics.aspx.designer.cs">
+      <DependentUpon>Statistics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administrator\HelpDeskDetail.aspx.cs">
+      <DependentUpon>HelpDeskDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administrator\HelpDeskDetail.aspx.designer.cs">
+      <DependentUpon>HelpDeskDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Application\404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Application\404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Application\500.aspx.cs">
+      <DependentUpon>500.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Application\500.aspx.designer.cs">
+      <DependentUpon>500.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Application\PageHome.aspx.cs">
+      <DependentUpon>PageHome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Application\PageHome.aspx.designer.cs">
+      <DependentUpon>PageHome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Application\PageLocked.aspx.cs">
+      <DependentUpon>PageLocked.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Application\PageLocked.aspx.designer.cs">
+      <DependentUpon>PageLocked.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Application\PageRegistration.aspx.cs">
+      <DependentUpon>PageRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Application\PageRegistration.aspx.designer.cs">
+      <DependentUpon>PageRegistration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Application\PageSignIn.aspx.cs">
+      <DependentUpon>PageSignIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Application\PageSignIn.aspx.designer.cs">
+      <DependentUpon>PageSignIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Application\UnderConstruction.aspx.cs">
+      <DependentUpon>UnderConstruction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Application\UnderConstruction.aspx.designer.cs">
+      <DependentUpon>UnderConstruction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpDesk\Confirmation.aspx.cs">
+      <DependentUpon>Confirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\HelpDesk\Confirmation.aspx.designer.cs">
+      <DependentUpon>Confirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpDesk\FollowUp.aspx.cs">
+      <DependentUpon>FollowUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\HelpDesk\FollowUp.aspx.designer.cs">
+      <DependentUpon>FollowUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpDesk\HelpDesk.aspx.cs">
+      <DependentUpon>HelpDesk.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\HelpDesk\HelpDesk.aspx.designer.cs">
+      <DependentUpon>HelpDesk.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpDesk\Information.aspx.cs">
+      <DependentUpon>Information.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\HelpDesk\Information.aspx.designer.cs">
+      <DependentUpon>Information.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpDesk\Status.aspx.cs">
+      <DependentUpon>Status.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\HelpDesk\Status.aspx.designer.cs">
+      <DependentUpon>Status.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpDesk\StatusInfo.aspx.cs">
+      <DependentUpon>StatusInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\HelpDesk\StatusInfo.aspx.designer.cs">
+      <DependentUpon>StatusInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Templates\Graphs.aspx.cs">
+      <DependentUpon>Graphs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Templates\Graphs.aspx.designer.cs">
+      <DependentUpon>Graphs.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Frameworks\AuditTrail\" />
+    <Folder Include="Gallery\Profile\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Account\Web.config" />
+    <Content Include="Site.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Views\Administrator\Report\HelpDeskReport.resx">
+      <DependentUpon>HelpDeskReport.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51557</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:32809/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

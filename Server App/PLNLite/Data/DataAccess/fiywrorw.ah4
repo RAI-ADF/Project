@@ -1,0 +1,1773 @@
+﻿using BioCustomerCare.Data.DataAgent;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Web;
+using System.Web.Configuration;
+
+namespace BioCustomerCare.Data.DataAccess
+{
+    public class CatalogManager : DatabaseFactory
+    {
+        public static string GetDate()
+        {
+            return DateTime.Now.ToString(WebConfigurationManager.AppSettings["DateTimeFormat"].ToString());
+        }
+
+        public static string DelimitByMinute()
+        {
+            return DateTime.Now.AddMinutes(-1).ToString(WebConfigurationManager.AppSettings["DateTimeFormat"].ToString());
+        }
+
+        public static string DelimitByDay()
+        {
+            return DateTime.Now.AddMinutes(-1).ToString(WebConfigurationManager.AppSettings["DateTimeFormat"].ToString());
+        }
+
+        public static string GetMaxDate()
+        {
+            return DateTime.MaxValue.ToString(WebConfigurationManager.AppSettings["DateTimeFormat"].ToString());
+        }
+    }
+    public class CatalogHelpDesk : CatalogManager
+    {
+        //COMPLAINT V
+        public static void InsertComplaint(string BEGDA, string ENDDA, string TIKET, string PRBID, string PRBNM, string DESCR, string USRPN, string USRNM, string ORGCD, string ORGNM, string OPRPN, string OPRNM, string SLVPN, string SLVNM, string VALPN, string VALNM, string APPPN, string APPNM, string ATTCH, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" INSERT INTO helpdesk.COMPLAINT                                                                                     ");
+            query.Append(" (BEGDA, ENDDA, TIKET, PRBID, PRBNM,                                                                                ");
+            query.Append(" DESCR, USRPN, USRNM, ORGCD, ORGNM, OPRPN, OPRNM, SLVPN,                                                            ");
+            query.Append(" SLVNM, VALPN, VALNM, APPPN, APPNM, ATTCH, CHGDT, USRDT)                                                            ");
+            query.Append(" VALUES                                                                                                             ");
+            query.Append(" ('" + BEGDA + "','" + ENDDA + "', '" + TIKET + "', '" + PRBID + "', '" + PRBNM + "',                               ");
+            query.Append(" '" + DESCR + "', '" + USRPN + "', '" + USRNM + "','" + ORGCD + "','" + ORGNM + "','" + OPRPN + "','" + OPRNM + "', ");
+            query.Append(" '" + SLVPN + "','" + SLVNM + "','" + VALPN + "','" + VALNM + "','" + APPPN + "','" + APPNM + "',                   ");
+            query.Append(" '" + ATTCH + "', GETDATE(),'" + USRDT + "')                                                                        ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void UpdateComplaint(string BEGDA, string ENDDA, string RECID, string TIKET, string PRBID, string PRBNM, string DESCR, string USRPN, string USRNM, string ORGCD, string ORGNM, string OPRPN, string OPRNM, string SLVPN, string SLVNM, string VALPN, string VALNM, string APPPN, string APPNM, string ATTCH, string USRDT )
+        {
+            DelimitComplaint(RECID, USRDT);
+            InsertComplaint(BEGDA, ENDDA, TIKET, PRBID, PRBNM, DESCR, USRPN, USRNM, ORGCD, ORGNM, OPRPN, OPRNM, SLVPN, SLVNM, VALPN, VALNM, APPPN, APPNM, ATTCH, USRDT);
+        }
+
+        public static void DelimitComplaint(string RECID, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" UPDATE helpdesk.COMPLAINT                ");
+            query.Append(" SET ENDDA = '" + DelimitByMinute() + "', ");
+            query.Append(" CHGDT = '" + GetDate() + "',             ");
+            query.Append(" USRDT = '" + USRDT + "'                  ");
+            query.Append(" WHERE RECID = '" + RECID + "' AND        ");
+            query.Append(" BEGDA <= GETDATE() AND                   ");
+            query.Append(" ENDDA >= GETDATE()                       ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void DeleteComplaint(string RECID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" DELETE FROM helpdesk.COMPLAINT   ");
+            query.Append(" WHERE RECID = '" + RECID + "' AND");
+            query.Append(" BEGDA <= GETDATE() AND           ");
+            query.Append(" ENDDA >= GETDATE()               ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static object[] GetComplaintByID(string RECID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" BEGDA, ENDDA, RECID, TIKET, PRBID,");
+            query.Append(" PRBNM, DESCR, USRPN, USRNM, ORGCD,");
+            query.Append(" ORGNM, OPRPN, OPRNM, SLVPN, SLVNM,");
+            query.Append(" VALPN, VALNM, APPPN, APPNM, ATTCH ");
+            query.Append(" FROM helpdesk.COMPLAINT           ");
+            query.Append(" WHERE                             ");
+            query.Append(" BEGDA <= GETDATE() AND            ");
+            query.Append(" ENDDA >= GETDATE() AND            ");
+            query.Append(" RECID = '" + RECID + "'           ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] data = null;
+                while (reader.Read())
+                {
+                    data = new object[] { reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7], reader[8], reader[9], reader[10], reader[11], reader[12], reader[13], reader[14], reader[15], reader[16], reader[17], reader[18], reader[19]};
+                }
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetComplaintsByStatus(string CLSTS)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" RECID, TIKET, PRBID, PRBNM, DESCR,");
+            query.Append(" USRPN, USRNM, OPRPN, OPRNM, SLVPN,");
+            query.Append(" SLVNM, VALPN, VALNM, APPPN, APPNM,");
+            query.Append(" ATTCH, BEGDA, ORGCD, ORGNM        ");
+            query.Append(" FROM helpdesk.COMPLAINT           ");
+            query.Append(" WHERE                             ");
+            query.Append(" BEGDA <= GETDATE() AND            ");
+            query.Append(" ENDDA >= GETDATE() AND            ");
+            query.Append(" CLSTS = '" + CLSTS + "'           ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Complaint";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetComplaintsByStatusUnsolved(string BEGIN, string END)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" RECID, TIKET, PRBID, PRBNM, DESCR,");
+            query.Append(" USRPN, USRNM, OPRPN, OPRNM, SLVPN,");
+            query.Append(" SLVNM, VALPN, VALNM, APPPN, APPNM,");
+            query.Append(" ATTCH, BEGDA, ORGCD, ORGNM        ");
+            query.Append(" FROM helpdesk.COMPLAINT           ");
+            query.Append(" WHERE                             ");
+            query.Append(" ENDDA >= GETDATE() AND            ");
+            query.Append(" BEGDA >= '" + BEGIN + "' AND          ");
+            query.Append(" BEGDA <= '" + END + "' AND            ");
+            query.Append(" (CLSTS = '1' OR CLSTS = '2')      ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Complaint";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static object[] GetComplaintByTicket(string TICKET)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" RECID, TIKET, PRBID, PRBNM, DESCR,");
+            query.Append(" USRPN, USRNM, OPRPN, OPRNM, SLVPN,");
+            query.Append(" SLVNM, VALPN, VALNM, APPPN, APPNM,");
+            query.Append(" ATTCH, BEGDA, ORGCD, ORGNM        ");
+            query.Append(" ATTCH                             ");
+            query.Append(" FROM helpdesk.COMPLAINT           ");
+            query.Append(" WHERE                             ");
+            query.Append(" BEGDA <= GETDATE() AND            ");
+            query.Append(" ENDDA >= GETDATE() AND            ");
+            query.Append(" TIKET = '" + TICKET + "'          ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] data = null;
+                while (reader.Read())
+                {
+                    data = new object[] { reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7], reader[8], reader[9], reader[10], reader[11], reader[12], reader[13], reader[14], reader[15], reader[16], reader[17], reader[18] };
+                }
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static int GetTotalComplaintByProblem(string PRBID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" COUNT(*)                          ");
+            query.Append(" FROM helpdesk.COMPLAINT           ");
+            query.Append(" WHERE                             ");
+            query.Append(" BEGDA <= GETDATE() AND            ");
+            query.Append(" ENDDA >= GETDATE() AND            ");
+            query.Append(" PRBID = '" + PRBID + "'           ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                int data = 0;
+                while (reader.Read())
+                {
+                    data = Convert.ToInt32(reader[0]);
+                }
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetComplaintsByDateRange(string BEGIN, string END)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                                ");
+            query.Append(" RECID, TIKET, PRBID, PRBNM, DESCR,    ");
+            query.Append(" USRPN, USRNM, OPRPN, OPRNM, SLVPN,    ");
+            query.Append(" SLVNM, VALPN, VALNM, APPPN, APPNM,    ");
+            query.Append(" ATTCH, BEGDA, ORGCD, ORGNM            ");
+            query.Append(" FROM helpdesk.COMPLAINT               ");
+            query.Append(" WHERE                                 ");
+            query.Append(" BEGDA <= GETDATE() AND                ");
+            query.Append(" ENDDA >= GETDATE() AND                ");
+            query.Append(" BEGDA >= '" + BEGIN + "' AND          ");
+            query.Append(" BEGDA <= '" + END + "'                ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Complaint";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        public static DataTable GetComplaintsByDateStatus(string BEGIN, string END)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                                ");
+            query.Append(" RECID, TIKET, PRBID, PRBNM, DESCR,    ");
+            query.Append(" USRPN, USRNM, OPRPN, OPRNM, SLVPN,    ");
+            query.Append(" SLVNM, VALPN, VALNM, APPPN, APPNM,    ");
+            query.Append(" ATTCH, BEGDA, ORGCD, ORGNM            ");
+            query.Append(" FROM helpdesk.COMPLAINT               ");
+            query.Append(" WHERE                                 ");
+            query.Append(" ENDDA >= GETDATE() AND                ");
+            query.Append(" BEGDA >= '" + BEGIN + "' AND          ");
+            query.Append(" BEGDA <= '" + END + "' AND            ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Complaint";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetComplaints()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" RECID, TIKET, PRBID, PRBNM, DESCR,");
+            query.Append(" USRPN, USRNM, OPRPN, OPRNM, SLVPN,");
+            query.Append(" SLVNM, VALPN, VALNM, APPPN, APPNM,");
+            query.Append(" ATTCH, BEGDA, ORGCD, ORGNM        ");
+            query.Append(" FROM helpdesk.COMPLAINT           ");
+            query.Append(" WHERE                             ");
+            query.Append(" BEGDA <= GETDATE() AND            ");
+            query.Append(" ENDDA >= GETDATE()                ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Complaint";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //CLASSIFICATION V
+        public static void InsertClassification(string BEGDA, string ENDDA, string CLSNM, string ORGCD, string ORGNM, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" INSERT INTO helpdesk.CLASSIFICATION");
+            query.Append(" (BEGDA, ENDDA, CLSNM, ORGCD,");
+            query.Append(" ORGNM, CHGDT, USRDT)");
+            query.Append(" VALUES");
+            query.Append(" ('" + BEGDA + "' , '" + ENDDA + "', '" + CLSNM + "' , '" + ORGCD + "' ,");
+            query.Append(" '" + ORGNM + "' , GETDATE() , '" + USRDT + "')");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void UpdateClassification(string BEGDA, string ENDDA, string RECID, string CLSNM, string ORGCD, string ORGNM, string USRDT)
+        {
+            DelimitClassification(RECID, USRDT);
+            InsertClassification(BEGDA, ENDDA, CLSNM, ORGCD, ORGNM, USRDT);
+        }
+
+        public static void DelimitClassification(string RECID, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" UPDATE helpdesk.CLASSIFICATION          ");
+            query.Append(" SET ENDDA = '" + DelimitByMinute() + "',");
+            query.Append(" CHGDT = '" + GetDate() + "',            ");
+            query.Append(" USRDT = '" + USRDT + "'                 ");
+            query.Append(" WHERE RECID = '" + RECID + "' AND       ");
+            query.Append(" BEGDA <= GETDATE() AND                  ");
+            query.Append(" ENDDA >= GETDATE()                      ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void DeleteClassification(string RECID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" DELETE FROM helpdesk.CLASSIFICATION  ");
+            query.Append(" WHERE RECID = '" + RECID + "' AND    ");
+            query.Append(" BEGDA <= GETDATE() AND               ");
+            query.Append(" ENDDA >= GETDATE()                   ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static object[] GetClassificationByID(string RECID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                       ");
+            query.Append(" RECID, CLSNM, ORGCD, ORGNM   ");
+            query.Append(" FROM helpdesk.CLASSIFICATION ");
+            query.Append(" WHERE                        ");
+            query.Append(" BEGDA <= GETDATE() AND       ");
+            query.Append(" ENDDA >= GETDATE() AND       ");
+            query.Append(" RECID = '" + RECID + "'      ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] data = null;
+                while (reader.Read())
+                {
+                    data = new object[] { reader[0], reader[1], reader[2], reader[3] };
+                }
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetClassifications()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                       ");
+            query.Append(" RECID, CLSNM, ORGCD, ORGNM   ");
+            query.Append(" FROM helpdesk.CLASSIFICATION ");
+            query.Append(" WHERE                        ");
+            query.Append(" BEGDA <= GETDATE() AND       ");
+            query.Append(" ENDDA >= GETDATE()           ");
+
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Classification";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static string GetMaxRecid()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+            string values = "";
+            query.Append(" select max (RECID) from helpdesk.COMPLAINT where BEGDA <= GETDATE() AND ENDDA >= GETDATE() ");
+
+
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = GetCommand(conn, query.ToString());
+                SqlDataReader reader = GetDataReader(cmd);
+                while (reader.Read())
+                {
+                    values = reader[0].ToString();
+                }
+                return values;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //PROBLEM V
+        public static void InsertProblem(string BEGDA, string ENDDA, string PRBTY, string PRBNM, string CLSID, string CLSNM, string PRTID, string KPIOP, string KPIOU, string KPISO, string KPISU, string KPIVA, string KPIVU, string KPIAH, string KPIAU, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" INSERT INTO helpdesk.PROBLEM                                                         ");
+            query.Append(" (BEGDA, ENDDA, PRBTY, PRBNM,                                                  ");
+            query.Append(" CLSID, CLSNM, PRTID, KPIOP, KPIOU,                                                   ");
+            query.Append(" KPISO, KPISU, KPIVA, KPIVU, KPIAH,                                                   ");
+            query.Append(" KPIAU, CHGDT, USRDT)                                                                 ");
+            query.Append(" VALUES                                                                               ");
+            query.Append(" ('" + BEGDA + "', '" + ENDDA + "', '" + PRBTY + "', '" + PRBNM + "',");
+            query.Append(" '" + CLSID + "', '" + CLSNM + "', '" + PRTID + "', '" + KPIOP + "', '" + KPIOU + "', ");
+            query.Append(" '" + KPISO + "', '" + KPISU + "', '" + KPIVA + "', '" + KPIVU + "', '" + KPIAH + "', ");
+            query.Append(" '" + KPIAU + "', GETDATE(), '" + USRDT + "')                                   ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void UpdateProblem(string BEGDA, string ENDDA, string RECID, string PRBTY, string PRBNM, string CLSID, string CLSNM, string PRTID, string KPIOP, string KPIOU, string KPISO, string KPISU, string KPIVA, string KPIVU, string KPIAH, string KPIAU, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            DelimitProblem(RECID, USRDT);
+            InsertProblem(BEGDA, ENDDA, PRBTY, PRBNM, CLSID, CLSNM, PRTID, KPIOP, KPIOU, KPISO, KPISU, KPIVA, KPIVU, KPIAH, KPIAU, USRDT);
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void DelimitProblem(string RECID, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" UPDATE helpdesk.PROBLEM                  ");
+            query.Append(" SET ENDDA = '" + DelimitByMinute() + "', ");
+            query.Append(" CHGDT = '" + GetDate() + "',             ");
+            query.Append(" USRDT = '" + USRDT + "'                  ");
+            query.Append(" WHERE RECID = '" + RECID + "' AND        ");
+            query.Append(" BEGDA <= GETDATE() AND                   ");
+            query.Append(" ENDDA >= GETDATE()                       ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void DeleteProblem(string RECID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" DELETE FROM helpdesk.PROBLEM ");
+            query.Append(" WHERE                        ");
+            query.Append(" RECID = '" + RECID + "' AND  ");
+            query.Append(" BEGDA <= GETDATE() AND       ");
+            query.Append(" ENDDA >= GETDATE()           ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static object[] GetProblemByID(string RECID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" RECID, PRBTY, CLSID, CLSNM, PRBNM,");
+            query.Append(" PRTID, KPIOP, KPIOU, KPISO, KPISU,");
+            query.Append(" KPIVA, KPIVU, KPIAH, KPIAU        ");
+            query.Append(" FROM helpdesk.PROBLEM             ");
+            query.Append(" WHERE                             ");
+            query.Append(" BEGDA <= GETDATE() AND            ");
+            query.Append(" ENDDA >= GETDATE() AND            ");
+            query.Append(" RECID = '" + RECID + "'           ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] data = null;
+                while (reader.Read())
+                {
+                    data = new object[] { reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7], reader[8], reader[9], reader[10], reader[11], reader[12], reader[13] };
+                }
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetProblems()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" RECID, CLSID, CLSNM, PRBNM        ");
+            query.Append(" FROM helpdesk.PROBLEM             ");
+            query.Append(" WHERE                             ");
+            query.Append(" BEGDA <= GETDATE() AND            ");
+            query.Append(" ENDDA >= GETDATE() AND            ");
+            query.Append(" PRBTY = '1'                       ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Problem";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetSubProblems()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                                       ");
+            query.Append(" C.RECID, P.CLSID, P.CLSNM, C.PRBNM, P.PRBNM PRTNM, ");
+            query.Append(" C.KPIOP, C.KPIOU, C.KPISO, C.KPISU, C.KPIVA, ");
+            query.Append(" C.KPIVU, C.KPIAH, C.KPIAU                    ");
+            query.Append(" FROM helpdesk.PROBLEM P,                     ");
+            query.Append(" helpdesk.PROBLEM C                           ");
+            query.Append(" WHERE                                        ");
+            query.Append(" C.BEGDA <= GETDATE() AND                     ");
+            query.Append(" C.ENDDA >= GETDATE() AND                     ");
+            query.Append(" P.BEGDA <= GETDATE() AND                     ");
+            query.Append(" P.ENDDA >= GETDATE() AND                     ");
+            query.Append(" C.PRTID = P.RECID AND                        ");
+            query.Append(" C.PRBTY = '2'                                ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Problem";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //PersonInCharge V
+        public static void InsertPersonInCharge(string BEGDA, string ENDDA, string PRBID, string PRBNM, string PERNR, string CNAME, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" INSERT INTO helpdesk.PIC         ");
+            query.Append(" (BEGDA, ENDDA, PRBID, PRBNM,      ");
+            query.Append(" PERNR, CNAME, CHGDT, USRDT)      ");
+            query.Append(" VALUES                           ");
+            query.Append(" ('" + BEGDA + "' ,'" + ENDDA + "',");
+            query.Append(" '" + PRBID + "','" + PRBNM + "',");
+            query.Append(" '" + PERNR + "', '" + CNAME + "',");
+            query.Append(" GETDATE(), '" + USRDT + "')");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void UpdatePersonInCharge(string BEGDA, string ENDDA, string RECID, string PRBID, string PRBNM, string PERNR, string CNAME, string USRDT)
+        {
+            DelimitPersonInCharge(RECID, USRDT);
+            InsertPersonInCharge(BEGDA, ENDDA, PRBID, PRBNM, PERNR, CNAME, USRDT);
+        }
+
+        public static void DelimitPersonInCharge(string RECID, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" UPDATE helpdesk.PIC                     ");
+            query.Append(" SET ENDDA = '" + DelimitByMinute() + "',");
+            query.Append(" CHGDT = '" + GetDate() + "',            ");
+            query.Append(" USRDT = '" + USRDT + "'                 ");
+            query.Append(" WHERE                                   ");
+            query.Append(" RECID = '" + RECID + "' AND             ");
+            query.Append(" BEGDA <= GETDATE() AND                  ");
+            query.Append(" ENDDA >= GETDATE()                      ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void DeletePersonInCharge(string RECID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" DELETE FROM helpdesk.PIC    ");
+            query.Append(" WHERE                       ");
+            query.Append(" RECID = '" + RECID + "' AND ");
+            query.Append(" BEGDA <= GETDATE() AND      ");
+            query.Append(" ENDDA >= GETDATE()          ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static object[] GetPersonInChargeByID(string RECID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" RECID, PRBID, PRBNM, PERNR, CNAME ");
+            query.Append(" FROM helpdesk.PIC                 ");
+            query.Append(" WHERE                             ");
+            query.Append(" BEGDA <= GETDATE() AND            ");
+            query.Append(" ENDDA >= GETDATE() AND            ");
+            query.Append(" RECID = '" + RECID + "'           ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] data = null;
+                while (reader.Read())
+                {
+                    data = new object[] { reader[0], reader[1], reader[2], reader[3], reader[4] };
+                }
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetPersonInCharges()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                       ");
+            query.Append(" RECID, PRBID, PRBNM, PERNR, CNAME   ");
+            query.Append(" FROM helpdesk.PIC            ");
+            query.Append(" WHERE                        ");
+            query.Append(" BEGDA <= GETDATE() AND       ");
+            query.Append(" ENDDA >= GETDATE()           ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "PersonInCharge";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetPeople()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT PERNR,CNAME,PRORG     ");
+            query.Append(" FROM bioumum.USER_DATA_NEW   ");
+            query.Append(" WHERE CHIEF != 'X'           ");
+            query.Append(" ORDER BY PRORG, CNAME        ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "People";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //SOLUTION
+        public static void InsertSolution(string BEGDA, string ENDDA, string CLSID, string CLSNM, string PRBID, string PRBNM, string PRSUB, string SUBNM, string SLTIO, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" INSERT INTO helpdesk.SOLUTION                                       ");
+            query.Append(" (BEGDA, ENDDA, CLSID,                                               ");
+            query.Append(" CLSNM, PRBID, PRBNM, PRSUB,                                         ");
+            query.Append(" SUBNM, SLTIO, CHGDT, USRDT)                                         ");
+            query.Append(" VALUES                                                              ");
+            query.Append(" ('" + BEGDA + "', '" + ENDDA + "', '" + CLSID + "',                 ");
+            query.Append("  '" + CLSNM + "', '" + PRBID + "', '" + PRBNM + "', '" + PRSUB + "',");
+            query.Append("  '" + SUBNM + "', '" + SLTIO + "', GETDATE(), '" + USRDT + "')      ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void UpdateSolution(string BEGDA, string ENDDA, string RECID, string CLSID, string CLSNM, string PRBID, string PRBNM, string PRSUB, string SUBNM, string SLTIO, string USRDT)
+        {
+            DelimitSolution(RECID, USRDT);
+            InsertSolution(BEGDA, ENDDA, CLSID, CLSNM, PRBID, PRBNM, PRSUB, SUBNM, SLTIO, USRDT);
+        }
+
+        public static void DelimitSolution(string RECID, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" UPDATE helpdesk.SOLUTION          ");
+            query.Append(" SET ENDDA = '" + DelimitByMinute() + "',");
+            query.Append(" CHGDT = '" + GetDate() + "',            ");
+            query.Append(" USRDT = '" + USRDT + "'                 ");
+            query.Append(" WHERE RECID = '" + RECID + "' AND       ");
+            query.Append(" BEGDA <= GETDATE() AND                  ");
+            query.Append(" ENDDA >= GETDATE()                      ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void DeleteSolution(string RECID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" DELETE FROM helpdesk.SOLUTION  ");
+            query.Append(" WHERE RECID = '" + RECID + "' AND    ");
+            query.Append(" BEGDA <= GETDATE() AND               ");
+            query.Append(" ENDDA >= GETDATE()                   ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static object[] GetSolutionByID(string RECID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                       ");
+            query.Append(" RECID, CLSID, CLSNM, PRBID,  ");
+            query.Append(" PRBNM, PRSUB, SUBNM, SLTIO   ");
+            query.Append(" FROM helpdesk.SOLUTION       ");
+            query.Append(" WHERE                        ");
+            query.Append(" BEGDA <= GETDATE() AND       ");
+            query.Append(" ENDDA >= GETDATE() AND       ");
+            query.Append(" RECID = '" + RECID + "'      ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] data = null;
+                while (reader.Read())
+                {
+                    data = new object[] { reader[0], reader[1], reader[2], reader[3] };
+                }
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetSolutions()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                       ");
+            query.Append(" RECID, CLSID, CLSNM, PRBID,  ");
+            query.Append(" PRBNM, PRSUB, SUBNM, SLTIO   ");
+            query.Append(" FROM helpdesk.SOLUTION       ");
+            query.Append(" WHERE                        ");
+            query.Append(" BEGDA <= GETDATE() AND       ");
+            query.Append(" ENDDA >= GETDATE()           ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Solution";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void GetSolutionByID()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+    //WORKFLOW V
+    public class HelpDeskWorkflow : CatalogManager
+    {
+        public static void InsertWorkFlow(string BEGDA, string DOCID, string SEQNO, string FLWTY, string PERNR, string POSID, string COMMT, string FLWST, string CHGDT, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" INSERT INTO helpdesk.WORKFLOW                                              ");
+            query.Append(" ( BEGDA, DOCID, SEQNO, FLWTY,                                              ");
+            query.Append("   PERNR, POSID, COMMT, FLWST,                                              ");
+            query.Append("   CHGDT, USRDT                 )                                           "); 
+            query.Append("   VALUES                                                                   ");
+            query.Append(" ( '" + BEGDA + "' , '" + DOCID + "', '" + SEQNO + "' , '" + FLWTY + "' ,   ");
+            query.Append("   '" + PERNR + "' , '" + POSID + "', '" + COMMT + "' , '" + FLWST +"'  ,   ");
+            query.Append("   GETDATE() , '" + USRDT + "')                                             ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetWorkFlow()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" BEGDA, DOCID, SEQNO, FLWTY,       ");
+            query.Append(" PERNR, POSID, COMMT, FLWST,       ");
+            query.Append(" CHGDT, USRDT                      ");
+            query.Append(" FROM helpdesk.WORKFLOW            ");
+            query.Append(" WHERE                             ");
+            query.Append(" BEGDA <= GETDATE()                ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Complaint";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetWorkFlowComplaint()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT WF.BEGDA, WF.DOCID, WF.SEQNO, WF.FLWTY, WF.FLWST,          ");
+            query.Append(" CM.RECID, CM.TIKET, CM.USRNM, CM.ORGNM, CM.PRBNM, CM.ATTCH        ");
+            query.Append(" FROM helpdesk.WORKFLOW WF,                                        ");
+            query.Append(" helpdesk.COMPLAINT CM                                             ");
+            query.Append(" WHERE                                                             ");
+            query.Append(" WF.DOCID = CM.RECID AND CM.ENDDA >= '"+ GetDate() +"' AND         ");
+            query.Append(" WF.BEGDA = (SELECT MAX(DF.BEGDA)                                  ");
+            query.Append(" FROM helpdesk.WORKFLOW DF WHERE DF.DOCID = CM.RECID)              ");
+            query.Append(" GROUP BY WF.BEGDA, WF.DOCID, WF.SEQNO, WF.FLWTY, WF.FLWST,        ");
+            query.Append(" CM.RECID, CM.TIKET, CM.USRNM, CM.ORGNM, CM.PRBNM, CM.ATTCH        ");
+            query.Append(" ORDER BY WF.FLWST ASC                                             ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Complaint";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        
+
+        public static object[] GetWorkFlowByID(string DOCID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" BEGDA, DOCID, SEQNO, FLWTY,       ");
+            query.Append(" PERNR, POSID, COMMT, FLWST,       ");
+            query.Append(" CHGDT, USRDT                      ");
+            query.Append(" FROM helpdesk.WORKFLOW           ");
+            query.Append(" WHERE                             ");
+            query.Append(" BEGDA <= GETDATE() AND            ");
+            query.Append(" DOCID = '" + DOCID + "'           ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] data = null;
+                while (reader.Read())
+                {
+                    data = new object[] { reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7], reader[8], reader[9] };
+                }
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static object[] GetWorkFlowByRECID(string RECID)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                            ");
+            query.Append(" BEGDA, DOCID, SEQNO, FLWTY,       ");
+            query.Append(" PERNR, POSID, COMMT, FLWST,       ");
+            query.Append(" CHGDT, USRDT                      ");
+            query.Append(" FROM helpdesk.WORKFLOW            ");
+            query.Append(" WHERE                             ");
+            query.Append(" BEGDA <= GETDATE() AND            ");
+            query.Append(" ENDDA >= GETDATE() AND            ");
+            query.Append(" RECID = '" + RECID + "'           ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] data = null;
+                while (reader.Read())
+                {
+                    data = new object[] { reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7], reader[8], reader[9] };
+                }
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+    }
+
+    public class CatalogOrganization : CatalogManager
+    {
+        public static DataTable GetDivision()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                    ");
+            query.Append(" OTYPE, ORGID, ORGCD,      ");
+            query.Append(" ORGNM, ORGEN, OQACD       ");
+            query.Append(" FROM                      ");
+            query.Append(" bioumum.ORGANIZATION_DATA ");
+            query.Append(" WHERE OTYPE = 'D'         ");
+            query.Append(" ORDER BY ORGNM            ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Divisi";
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+    }
+
+    public class UserCatalog : CatalogManager
+    {
+        public static void InsertEmail(string PERNR, string EMAIL, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            string sqlCmd = @"INSERT INTO bioumum.USER_EMAIL (BEGDA, ENDDA, PERNR, EMAIL, CHGDT, USRDT)
+                            VALUES ('" + GetDate() + "','" + GetMaxDate() + "','" + PERNR + "','" + EMAIL + "','" + GetDate() + "','" + USRDT + "');";
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void UpdateEmail(string PERNR, string EMAIL, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            string sqlCmd = @"UPDATE bioumum.USER_EMAIL SET ENDDA = '" + DelimitByMinute() + "', CHGDT = '" + GetDate() + "', USRDT = '" + USRDT + "' WHEREPERNR = '" + PERNR + "' AND BEGDA <= GETDATE() AND ENDDA >= GETDATE());";
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+                InsertEmail(PERNR, EMAIL, USRDT);
+            }
+        }
+
+        public static void EmptyLocalUserEmail()
+        {
+            SqlConnection conn = GetConnection();
+            string sqlCmd = @"TRUNCATE TABLE bioumum.USER_EMAIL";
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static int ValidateLocalUserEmail(string EMAIL)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                  ");
+            query.Append(" COUNT(*)                ");
+            query.Append(" FROM bioumum.USER_EMAIL ");
+            query.Append(" WHERE                   ");
+            query.Append(" EMAIL = '" + EMAIL + "' ");
+            query.Append(" AND BEGDA <= GETDATE()  ");
+            query.Append(" AND ENDDA >= GETDATE()  ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                int result = 0;
+                SqlDataReader reader = GetDataReader(cmd);
+
+                while (reader.Read())
+                {
+                    result = Convert.ToInt16(reader[0]);
+                }
+
+                return result;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static string GetUserEmailByPERNR(string PERNR)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder query = new StringBuilder();
+
+            query.Append(" SELECT                  ");
+            query.Append(" EMAIL                   ");
+            query.Append(" FROM bioumum.USER_EMAIL ");
+            query.Append(" WHERE                   ");
+            query.Append(" PERNR = '" + PERNR + "' ");
+            query.Append(" AND BEGDA <= GETDATE()  ");
+            query.Append(" AND ENDDA >= GETDATE()  ");
+
+            SqlCommand cmd = GetCommand(conn, query.ToString());
+
+            try
+            {
+                conn.Open();
+                string result = null;
+                SqlDataReader reader = GetDataReader(cmd);
+
+                while (reader.Read())
+                {
+                    result = reader[0].ToString();
+                }
+
+                return result;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void InsertPassword(string PERNR, string PASSW, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            string sqlCmd = @"INSERT INTO bioumum.USER_PASSWORD (BEGDA, ENDDA, PERNR, PASSW, CHGDT, USRDT)
+                            VALUES ('" + GetDate() + "','" + GetMaxDate() + "','" + PERNR + "','" + PASSW + "','" + GetDate() + "','" + USRDT + "');";
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void UpdatePassword(string PERNR, string PASSW, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            string sqlCmd = @"UPDATE bioumum.USER_PASSWORD SET ENDDA = '" + DelimitByMinute() + "', CHGDT = '" + GetDate() + "', USRDT = '" + USRDT + "' WHEREPERNR = '" + PERNR + "' AND BEGDA <= GETDATE() AND ENDDA >= GETDATE());";
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+                InsertPassword(PERNR, PASSW, USRDT);
+            }
+        }
+
+        public static int GetPasswordActivePeriod(string PERNR)
+        {
+            SqlConnection conn = GetConnection();
+            string sqlCmd = @"SELECT BEGDA, Convert(int,(GETDATE() - BEGDA))
+                            FROM bioumum.USER_PASSWORD WHERE PERNR = '" + PERNR + "' AND BEGDA <= GETDATE() AND ENDDA >= GETDATE();";
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd);
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                reader.Read();
+                return Convert.ToInt16(reader[1]);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void InsertUserRole(string PERNR, string ROLID, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            string sqlCmd = @"INSERT INTO bioumum.USER_OTORITY (BEGDA, ENDDA, PERNR, ROLID, CHGDT, USRDT)
+                            VALUES ('" + GetDate() + "','" + GetMaxDate() + "','" + PERNR + "','" + ROLID + "','" + GetDate() + "','" + USRDT + "');";
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static void UpdateUserRole(string PERNR, string ROLID, string USRDT)
+        {
+            SqlConnection conn = GetConnection();
+            string sqlCmd = @"UPDATE bioumum.USER_OTORITY SET ENDDA = '" + DelimitByMinute() + "', CHGDT = '" + GetDate() + "', USRDT = '" + USRDT + "' WHEREPERNR = '" + PERNR + "' AND BEGDA <= GETDATE() AND ENDDA >= GETDATE());";
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+                InsertPassword(PERNR, ROLID, USRDT);
+            }
+        }
+
+        public static DataTable GetUserRole()
+        {
+            SqlConnection conn = GetConnection();
+            string sqlCmd = @"SELECT DISTINCT ROLID, ROLNM
+                            FROM bioumum.USER_ROLE ORDER BY ROLNM";
+            SqlCommand cmd = GetCommand(conn, sqlCmd);
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Role";
+
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetUserApplicationAccount()
+        {
+            SqlConnection conn = GetConnection();
+
+            StringBuilder sqlCmd = new StringBuilder();
+
+            sqlCmd.Append(" SELECT UD.PERNR, UD.CNAME, US.COCNM, UE.EMAIL, UR.ROLNM             ");
+            sqlCmd.Append(" FROM                                                                ");
+            sqlCmd.Append(" bioumum.USER_ROLE UR, bioumum.USER_OTORITY UO,                      ");
+            sqlCmd.Append(" bioumum.USER_DATA_NEW UD, bioumum.USER_EMAIL UE                     ");
+            sqlCmd.Append(" WHERE                                                               ");
+            sqlCmd.Append(" UO.PERNR = UD.PERNR AND UD.PERNR = UE.PERNR AND UR.ROLID = UO.ROLID ");
+            sqlCmd.Append(" AND UO.BEGDA <= GETDATE() AND UO.ENDDA >= GETDATE()                 ");
+            sqlCmd.Append(" AND UR.BEGDA <= GETDATE() AND UR.ENDDA >= GETDATE()                 ");
+            sqlCmd.Append(" AND UE.BEGDA <= GETDATE() AND UE.ENDDA >= GETDATE()                 ");
+            sqlCmd.Append(" GROUP BY UD.PERNR, UD.CNAME, US.COCNM, UE.EMAIL, UR.ROLNM           ");
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "User";
+
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static int ValidateNIKEmployee(string NIK)
+        {
+            SqlConnection conn = GetConnection();
+            string sqlCmd = @"SELECT DISTINCT COUNT(*)
+                            FROM bioumum.USER_DATA_NEW
+                            WHERE PERNR = '" + NIK + "'";
+            SqlCommand cmd = GetCommand(conn, sqlCmd);
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                reader.Read();
+                return Convert.ToInt16(reader[0]);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static object[] GetUserApplicationData(string PERNR)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder sqlCmd = new StringBuilder();
+
+            sqlCmd.Append(" SELECT US.PERNR, US.CNAME, US.PRPOS, US.PRORG, US.GRPNM, US.SGRNM, US.PSGRP, UE.EMAIL, US.COCNM ");
+            sqlCmd.Append(" FROM bioumum.USER_DATA_NEW US, bioumum.USER_EMAIL UE                                            ");
+            sqlCmd.Append(" WHERE                                                                                           ");
+            sqlCmd.Append(" AND UE.BEGDA <= GETDATE() AND UE.ENDDA >= GETDATE()                                             ");
+            sqlCmd.Append(" AND US.BEGDA <= GETDATE() AND US.ENDDA >= GETDATE()                                             ");
+            sqlCmd.Append(" AND US.PERNR = UE.PERNR AND US.PERNR = '" + PERNR + "'                                          ");
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] user = null;
+                while (reader.Read())
+                {
+                    object[] values = { reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(), reader[7].ToString(), reader[8].ToString() };
+                    user = values;
+                }
+                return user;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static object[] GetUserData(string NIK)
+        {
+            SqlConnection conn = GetConnection();
+            string sqlCmd = @"SELECT US.PERNR, US.CNAME, US.PRPOS, US.PRORG, US.GRPNM, US.SGRNM, US.PSGRP
+                            FROM bioumum.USER_DATA_NEW US WHERE US.PERNR = '" + NIK + "'";
+            SqlCommand cmd = GetCommand(conn, sqlCmd);
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] user = null;
+                while (reader.Read())
+                {
+                    object[] values = { reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString() };
+                    user = values;
+                }
+                return user;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static object[] GetActiveUser(string PERNR, string PASSW)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder sqlCmd = new StringBuilder();
+
+            sqlCmd.Append(" SELECT US.PERNR, PS.PASSW, EM.EMAIL, US.CNAME, US.COCTR, PS.PLOCK,              ");
+            sqlCmd.Append(" DATEDIFF(DAY,PS.BEGDA,GETDATE()) AS PSPRD, US.PSTYP, US.POSID                   ");
+            sqlCmd.Append(" FROM bioumum.USER_DATA_NEW US, bioumum.USER_EMAIL EM, bioumum.USER_PASSWORD PS  ");
+            sqlCmd.Append(" WHERE US.PERNR = EM.PERNR AND US.PERNR = PS.PERNR                               ");
+            sqlCmd.Append(" AND EM.BEGDA <= GETDATE() AND EM.ENDDA >= GETDATE()                             ");
+            sqlCmd.Append(" AND PS.BEGDA <= GETDATE() AND PS.ENDDA >= GETDATE()                             ");
+            sqlCmd.Append(" AND US.PERNR = '" + PERNR + "' AND PS.PASSW = '" + PASSW + "'                   ");
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] user = null;
+                while (reader.Read())
+                {
+                    object[] values = { reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(), reader[7].ToString(), reader[8].ToString() };
+                    user = values;
+                }
+
+                return user;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static object[] GetActiveUserFromCTI(string EMAIL)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder sqlCmd = new StringBuilder();
+
+            sqlCmd.Append(" SELECT                                                                      ");
+            sqlCmd.Append(" US.PERNR, PS.PASSW, EM.EMAIL, US.CNAME, US.COCTR, US.COCNM                  ");
+            sqlCmd.Append(" FROM                                                                        ");
+            sqlCmd.Append(" bioumum.USER_DATA_NEW US, bioumum.USER_EMAIL EM, bioumum.USER_PASSWORD PS   ");
+            sqlCmd.Append(" WHERE                                                                       ");
+            sqlCmd.Append(" US.PERNR = EM.PERNR AND US.PERNR = PS.PERNR AND EM.BEGDA <= GETDATE()       ");
+            sqlCmd.Append(" AND EM.ENDDA >= GETDATE() AND EM.EMAIL = '" + EMAIL + "'                    ");
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd.ToString());
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = GetDataReader(cmd);
+                object[] user = null;
+                while (reader.Read())
+                {
+                    object[] values = { reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString() };
+                    user = values;
+                }
+
+                return user;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public static DataTable GetAllActiveUser()
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder sqlCmd = new StringBuilder();
+
+            sqlCmd.Append(" SELECT                                                                  ");
+            sqlCmd.Append(" US.PERNR, US.CNAME, US.PRPOS, US.PRORG, US.GRPNM, US.SGRNM, US.PSGRP    ");
+            sqlCmd.Append(" FROM                                                                    ");
+            sqlCmd.Append(" bioumum.USER_DATA_NEW US                                                ");
+            sqlCmd.Append(" ORDER BY US.PERNR;                                                      ");
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "ActiveUser";
+
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+    }
+
+    public class ApplicationCatalog : CatalogManager
+    {
+        public static DataTable GetMenuApplicationByUserID(string MNPID, string PERNR)
+        {
+            SqlConnection conn = GetConnection();
+            StringBuilder sqlCmd = new StringBuilder();
+
+            sqlCmd.Append(" SELECT                                                              ");
+            sqlCmd.Append(" UM.MENID, UM.MENAM, UM.MNURL, UM.MNICO                              ");
+            sqlCmd.Append(" FROM                                                                ");
+            sqlCmd.Append(" bioumum.USER_OTORITY UO, bioumum.USER_ROLE UR, bioumum.USER_MENU UM ");
+            sqlCmd.Append(" WHERE                                                               ");
+            sqlCmd.Append(" UO.ROLID = UR.ROLID AND UR.MENID = UM.MENID                         ");
+            sqlCmd.Append(" AND UM.MNPID = '" + MNPID + "' AND UO.PERNR = '" + PERNR + "'       ");
+            sqlCmd.Append(" ORDER BY UM.MNSEQ;                                                  ");
+
+            SqlCommand cmd = GetCommand(conn, sqlCmd.ToString());
+
+            try
+            {
+                conn.Open();
+                DataTable data = new DataTable();
+                SqlDataAdapter adapter = GetAdapter(cmd);
+                adapter.Fill(data);
+                data.TableName = "Menu";
+
+                return data;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+    }
+
+}

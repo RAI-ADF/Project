@@ -1,0 +1,8 @@
+edit file view:
+	resources/view/front
+
+edit content:
+	resources/lang/en/front
+
+ganti gambar:
+	public/img

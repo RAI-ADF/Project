@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bg_upload"
+    android:gravity="center"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"/>
+
+        <Button
+            android:id="@+id/btnUpload"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="#595959"
+            android:text="@string/btn_upload"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/caption"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input_register_bg"
+            android:hint="@string/hint_caption"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint" />
+
+        <ImageButton
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:id="@+id/nomButton"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="false"
+            android:background="@mipmap/nom_button"/>
+
+    </LinearLayout>
+
+</LinearLayout>

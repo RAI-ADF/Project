@@ -1,0 +1,40 @@
+@extends('master')
+@section('title', 'View a question')
+@section('content')
+
+    <div class="container col-md-8 col-md-offset-2">
+            <div class="well well bs-component">
+		
+		<table class="table">
+                        <thead>
+                            <tr>
+                                <th>Vote</th>
+                                <th>Result</th>
+							</tr>
+                        </thead>	
+		@if ($result->isEmpty())
+                    <p> There is no result.</p>
+                @else	
+					@foreach($result as $result)
+                                <tr>
+                                    <!--<td>{!! $result->id !!} </td>-->
+                                    <td>{!! $result->vote !!}</td>
+                                    <!--<td>{!! $result->slug  !!}</td>-->
+									<td>{!! $result->count !!}</td>
+								</tr>
+                            @endforeach
+							
+		@endif	
+		</table>		
+			
+               <!--<div class="content">
+                    <h2 class="header">{!! $result->result !!}</h2>
+                    <p> <strong>vote</strong>: {!! $result->vote !!}</p>
+                    <p> <strong>slug</strong>: {!! $result->slug !!}</p>
+					<p> <strong>count</strong>: {!! $result->count !!}</p>
+				</div>-->
+                
+            </div>
+    </div>
+
+@endsection

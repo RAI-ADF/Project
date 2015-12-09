@@ -1,0 +1,313 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HelpDeskRequest.aspx.cs" Inherits="BioCustomerCare.Views.Administrator.HelpDeskRequest" %>
+
+<%@ Import Namespace="BioCustomerCare.Data.DataAccess" %>
+<%@ Import Namespace="BioCustomerCare.Frameworks.Validation" %>
+<%@ Import Namespace="BioCustomerCare.Frameworks.Security" %>
+<%@ Import Namespace="BioCustomerCare.Presentation.Components" %>
+<%@ Import Namespace="BioCustomerCare.Frameworks.Converter" %>
+<%@ Import Namespace="BioCustomerCare.Entity.Dictionary" %>
+<%@ Import Namespace="BioCustomerCare.Business.Activities" %>
+<%@ Import Namespace="System.Data" %>
+
+<!DOCTYPE html>
+<script runat="server">
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        SessionCreator();
+        if (Session["username"] == null && Session["password"] == null) Response.Redirect("PageLogin.aspx");
+
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["RECID"] != null && (Request.QueryString["act"] == "1"))
+            {
+                string _recid = CryptographEngine.Decrypt(Request.QueryString["RECID"], true);
+                CreateTestDetail(_recid);
+            }
+        }
+    }
+
+    protected void SessionCreator()
+    {
+        Session["username"] = "K495";
+        Session["name"] = "Allan Prakosa";
+        Session["password"] = "BIOFARMA";
+        Session["posid"] = "372";
+        Session["email"] = "allan.prakosa@biofarma.co.id";
+        Session["coctr"] = "64100";
+        Session["jobcd"] = "STAF";
+    }
+
+    protected void CreateTestDetail(string _recid)
+    {
+        object[] data = CatalogHelpDesk.GetComplaintByID(_recid);
+        txtDate.Text = DateTimeConverter.GetDateFormat(DateTime.Now.ToString("MM/dd/yyyy"));
+        txtTicket.Text = data[3].ToString();
+        txtUser.Text = data[8].ToString();
+        txtUnit.Text = data[10].ToString();
+        txtClassification.Text = "";
+        txtProblem.Text = "";
+        txtSubProblem.Text = data[5].ToString();
+        txtDescription.Text = data[6].ToString();
+        txtOperator.Text = Session["name"].ToString();
+        txtStatus.Text = "";
+        txtSolver.Text = data[14].ToString();
+        txtValidator.Text = data[16].ToString();
+        txtApprover.Text = data[18].ToString(); 
+    }
+
+    
+    protected string GetAction(string RECID)
+    {
+        StringBuilder element = new StringBuilder();
+
+        //Preview Detail
+        element.Append("<span class='btn btn-warning' style='color:white'><a style='color:white' href='HelpDeskDetail.aspx?act=1&RECID=" + CryptographEngine.Encrypt(RECID, true) + "'>D</a></span> ");
+        element.Append("<span class='btn btn-primary' style='color:white'><a style='color:white' href='CustomerCarePIC.aspx?act=2&RECID=" + CryptographEngine.Encrypt(RECID, true) + "'>P</a></span> ");
+        return element.ToString();
+    }
+
+    //OK btn
+    protected void btnOk_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("HelpDeskRequest.aspx");
+    }
+
+    protected string GetStatus(string CLSTS)
+    {
+        StringBuilder element = new StringBuilder();
+        bool isNull = false;
+
+        if (CLSTS == "0") isNull = true;
+
+        bool IsInProgress = CLSTS == "1";
+        bool IsValidate = CLSTS == "2";
+        bool IsApproved = CLSTS == "3";
+        
+        if (isNull)
+        {
+            element.Append("<span class='label label-default' style='color:white'>?</span> ");
+        }
+        else if(IsInProgress)
+        {
+            element.Append("<span class='label label-warning' style='color:white'><i class=fa fa-gear></i></span>");
+        }
+        else if(IsValidate)
+        {
+            element.Append("<span class='label label-primary' style='color:white'>V</span> ");
+        }
+        else if(IsApproved)
+        {
+            element.Append("<span class='label label-success' style='color:white'>A</span> ");
+        }
+        
+        return element.ToString();
+    }
+
+    protected String GenerateHelpDeskRequest()
+    {
+        StringBuilder _tableelement = new StringBuilder();
+
+            DataTable table = CatalogHelpDesk.GetComplaints();
+
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                string _status = (table.Rows[i]["CLSTS"].ToString() != "" ? GetStatus(table.Rows[i]["CLSTS"].ToString()) : "");
+                string _action = GetAction(table.Rows[i]["RECID"].ToString());
+                
+                _tableelement.Append("<tr class=''>");
+                _tableelement.Append("<td>" + _status + "</td>");
+                _tableelement.Append("<td>" + table.Rows[i]["TIKET"].ToString() + "</td>");
+                _tableelement.Append("<td>" + DateTimeConverter.GetDateFormat(table.Rows[i]["BEGDA"].ToString()) + "</td>");
+                _tableelement.Append("<td>" + table.Rows[i]["USRNM"].ToString() + "</td>");
+                _tableelement.Append("<td>" + table.Rows[i]["ORGNM"].ToString() + "</td>");
+                _tableelement.Append("<td>" + table.Rows[i]["PRBNM"].ToString() + "</td>");
+                _tableelement.Append("<td>" + table.Rows[i]["ATTCH"].ToString() + "</td>");
+                _tableelement.Append("<td align='center'>" + _action + "</td>");
+                _tableelement.Append("</tr>");
+            }
+
+        return _tableelement.ToString();
+    }
+    
+</script>
+
+<html lang="en">
+<head>
+    <% Response.Write(BasicScripts.GetMetaScript()); %>
+
+    <title>Customer Care</title>
+
+    <% Response.Write(StyleScripts.GetCoreStyle()); %>
+    <% Response.Write(StyleScripts.GetCustomStyle()); %>
+    <% Response.Write(StyleScripts.GetTableStyle()); %>
+    <% Response.Write(StyleScripts.GetCustomStyle()); %>
+</head>
+
+<body>
+
+    <section id="container">
+
+        <!--header start-->
+        <%Response.Write(SideBarMenu.TopMenuElement(Session["name"].ToString())); %>
+        <!--header end-->
+
+        <!--left side bar start-->
+        <%Response.Write(SideBarMenu.LeftSidebarMenuElementAutoGenerated(Session["username"].ToString())); %>
+        <!--left side bar end-->
+
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                <!-- page start-->
+                <form runat="server">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Customer Care Detail
+                            </header>
+                                <div class="panel-body">
+                                    <div class="form-horizontal " runat="server">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Tanggal</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                                <asp:Label ID="txtDate" runat="server" class="form-control  m-bot15"></asp:Label>
+                                            </div>
+                                            <label class="col-sm-1 control-label">Tiket</label>
+                                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                                <asp:Label ID="txtTicket" runat="server" class="form-control m-bot15"></asp:Label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">User</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                                <asp:Label ID="txtUser" runat="server" class="form-control  m-bot15"></asp:Label>
+                                            </div>
+                                            <label class="col-sm-1 control-label">Unit</label>
+                                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                                <asp:Label ID="txtUnit" runat="server" class="form-control m-bot15" style="height:58px;"></asp:Label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label"></label>
+                                            <div class="col-lg-3 col-md-3">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3">
+                                                <span class="help-block"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label"></label>
+                                            <div class="col-lg-3 col-md-3">
+                                                <span class="help-block">Classification</span>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3">
+                                                <span class="help-block">Problem</span>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3">
+                                                <span class="help-block">Sub Problem</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label"></label>
+                                            <div class="col-lg-3 col-md-3">
+                                                <asp:Label ID="txtClassification" runat="server" class="form-control m-bot15"></asp:Label>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3">
+                                                <asp:Label ID="txtProblem" runat="server" class="form-control m-bot15"></asp:Label>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3">
+                                                <asp:Label ID="txtSubProblem" runat="server" class="form-control m-bot15"></asp:Label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Description</label>
+                                            <div class="col-lg-9 col-md-9 col-sm-9">
+                                                <asp:Label ID="txtDescription" runat="server" class="form-control m-bot15" Style="height:100px;"></asp:Label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Operator</label>
+                                            <div class="col-lg-4 col-md-4">
+                                                <asp:Label ID="txtOperator" runat="server" class="form-control m-bot15"></asp:Label>
+                                            </div>
+                                            <label class="col-sm-1 control-label">Status</label>
+                                            <div class="col-lg-4 col-md-4">
+                                                <asp:Label ID="txtStatus" runat="server" class="form-control m-bot15"></asp:Label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label"></label>
+                                            <div class="col-lg-3 col-md-3">
+                                                <span class="help-block">Solver</span>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3">
+                                                <span class="help-block">Validator</span>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3">
+                                                <span class="help-block">Approver</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label"></label>
+                                            <div class="col-lg-3 col-md-3">
+                                                <asp:Label ID="txtSolver" runat="server" class="form-control m-bot15"></asp:Label>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3">
+                                                <asp:Label ID="txtValidator" runat="server" class="form-control m-bot15"></asp:Label>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3">
+                                                <asp:Label ID="txtApprover" runat="server" class="form-control m-bot15"></asp:Label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label"></label>
+                                            <div class="col-lg-4 col-md-4">
+                                                <asp:Button class="btn btn-round btn-green" Visible="true" ID="btnSave" runat="server" Text="OK" OnClick="btnOk_Click"  />
+                                            </div>
+                                        </div>
+
+                                        <%--<div class="form-group">
+                                            <label class="col-sm-2 control-label"></label>
+                                            <div class="col-lg-4 col-md-4">
+                                                <asp:Button class="btn btn-round btn-green" ID="btnCancel" runat="server" Text="Cancel" />
+                                                <asp:Button class="btn btn-round btn-green" Visible="true" ID="btnNext" runat="server" Text="Next" />
+                                            </div>
+                                        </div>--%>
+
+                                    </div>
+                                </div>
+                           
+                        </section>
+                    </div>
+                </div>
+                </form>
+                <!-- page end-->
+            </section>
+        </section>
+        <!--main content end-->
+        <!--right sidebar start-->
+        <!--right sidebar end-->
+    </section>
+
+    <!-- Placed js at the end of the document so the pages load faster -->
+    <% Response.Write(JS.GetCoreScript()); %>
+    <% Response.Write(JS.GetCustomFormScript()); %>
+    <% Response.Write(JS.GetDynamicTableScript()); %>
+    <% Response.Write(JS.GetInitialisationScript()); %>
+</body>
+</html>
